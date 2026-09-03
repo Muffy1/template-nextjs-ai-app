@@ -1,10 +1,22 @@
 name: CI
-
-on: [push, pull_request]
-
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
 jobs:
   ci:
-    uses: muffy86/infra-automation/.github/workflows/ci-node.yml@main
-    with:
-      node-version: "20"
-      package-manager: "npm"
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm test
+      - run: npm run build
