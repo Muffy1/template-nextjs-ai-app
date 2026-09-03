@@ -7,4 +7,4 @@ jobs:
     uses: muffy86/infra-automation/.github/workflows/ci-node.yml@main
     with:
       node-version: "20"
-      package-manager: "pnpm"
+      package-manager: "npm"
